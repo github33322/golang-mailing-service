@@ -1,6 +1,6 @@
 # Golang Mailing Service
 
-The Golang Mailing Service is a microservice developed in Go that allows storage of customers and sending them emails based on a mailing ID. The service uses Postgres as its database, and both the database and the application are containerized and prepared for deployment using Docker.
+The Golang Mailing Service is a proof of concept microservice developed in Go that allows storage of customers and sending them emails based on a mailing ID. The service uses Postgres as its database, and both the database and the application are containerized and prepared for deployment using Docker.
 
 ## Overview
 
@@ -22,10 +22,9 @@ The service allows storage of customer data, including their email, the title an
 
 1. Clone the repository.
 2. Navigate to the project directory.
-3. Build the Docker image with `docker build -t golang-mailing-service .`
-4. Run the Docker container with `docker run -d -p 8080:8080 golang-mailing-service`
+3. Run the containers with `docker compose up --build`
 
 ### TODO
 
-Add implementation for sending emails
+To make this app functional you need to implement your email sending service.
 
