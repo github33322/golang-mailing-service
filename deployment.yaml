@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golang-mailing-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: golang-mailing-service
+  template:
+    metadata:
+      labels:
+        app: golang-mailing-service
+    spec:
+      containers:
+      - name: golang-mailing-service
+        image: testuser12333/golang-mailing-service
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://postgres:5432/mailing_service?user=postgres&password=postgres&sslmode=disable"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: golang-mailing-service
+spec:
+  selector:
+    app: golang-mailing-service
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_DB
+          value: mailing_service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

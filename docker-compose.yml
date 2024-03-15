@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  golang-mailing-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres_db
+    environment:
+      DATABASE_URL: "postgresql://postgres_db:5432/mailing_service?user=postgres&password=postgres&sslmode=disable"
+  postgres_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mailing_service
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

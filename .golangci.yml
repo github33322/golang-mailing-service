@@ -1,0 +1,28 @@
+run:
+  timeout: 1m # default 1m
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unused
+    - varcheck
+    - exportloopref
+    - gocognit
+    - gocyclo
+    - testpackage
+    - misspell 
+    - unconvert
+    - wsl
+linters-settings:
+  gocycle:
+    min-complexity: 18
+  gocognit:
+    min-complexity: 18
+
